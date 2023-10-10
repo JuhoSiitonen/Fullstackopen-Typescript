@@ -69,3 +69,15 @@ interface Result {
       average: aver
     }
   }
+
+  try {
+    const { exercises, target } = parseArguments(process.argv);
+    const result = calculateExercises(exercises, target);
+    console.log(result)
+  } catch (error: unknown) {
+    let errorMessage = 'Something bad happened.'
+    if (error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
+  }
