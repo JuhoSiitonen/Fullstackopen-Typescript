@@ -1,4 +1,4 @@
-interface Result {
+export interface Result {
     periodLength: number;
     trainingDays: number;
     success: boolean;
@@ -8,32 +8,7 @@ interface Result {
     average: number;
   }
   
-  interface parsedArgs {
-    exercises: number[];
-    target: number;
-  }
-  
-  const parseArguments = (args: string[]): parsedArgs => {
-    if (args.length < 4) throw new Error('Not enough arguments');
-    let values: number[] = [];
-    for (let i = 2; i < args.length-1; i++) {
-      if (!isNaN(Number(args[i]))) {
-        values.push(Number(args[i]))
-      } else {
-        throw new Error('Provided values were not numbers!');
-      }
-    }
-    if (isNaN(Number(args.slice(-1)))) {
-      throw new Error('Provided values were not numbers!');
-    }
-    const targ: number = Number(args.slice(-1));
-    return {
-      exercises: values,
-      target: targ
-    }
-  }
-  
-  const calculateExercises = (exercises: number[], target: number) : Result => {
+  export const calculateExercises = (exercises: number[], target: number) : Result => {
     let succe: boolean = true;
     let aver: number = 0;
     for (let i = 0; i< exercises.length; i++) {
@@ -55,7 +30,7 @@ interface Result {
       descr = "You went over your target! Excellent!";
     }
     if (aver < target) {
-      rate = 1
+      rate = 1;
       descr = "You failed your target.. Try harder next time.";
     }
     
@@ -67,17 +42,5 @@ interface Result {
       ratingDescription: descr,
       target: target,
       average: aver
-    }
-  }
-
-  try {
-    const { exercises, target } = parseArguments(process.argv);
-    const result = calculateExercises(exercises, target);
-    console.log(result)
-  } catch (error: unknown) {
-    let errorMessage = 'Something bad happened.'
-    if (error instanceof Error) {
-      errorMessage += ' Error: ' + error.message;
-    }
-    console.log(errorMessage);
-  }
+    };
+  };
