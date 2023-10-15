@@ -3,7 +3,7 @@ import  bmiCalculator from './bmiCalculator';
 import { calculateExercises } from './exerciseCalculator';
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
 app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');
@@ -15,15 +15,16 @@ app.get('/bmi', (req, res) => {
     if (isNaN(height) || isNaN(weight)) {
         return res.status(400).json({ error: 'malformatted parameters' });
     }
-    const bmi = bmiCalculator(height, weight)
+    const bmi = bmiCalculator(height, weight);
     return res.json({ height, weight, bmi });
 });
 
 app.post('/exercises', (req, res) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { dailyExercises, target} = req.body;
-
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   for (let i = 0; i < dailyExercises.length; i++) {
+     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (isNaN(Number(dailyExercises[i]))) {
       return res.status(400).json({ error: 'malformatted parameters'});
     }
@@ -32,9 +33,10 @@ app.post('/exercises', (req, res) => {
     return res.status(400).json({ error: 'malformatted parameters'});
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const result = calculateExercises(dailyExercises, target);
   return res.json({ result });
-})
+});
 
 const PORT = 3003;
 
