@@ -3,7 +3,7 @@ import { Diagnosis } from '../types';
 
 
 const getDiagnoses = (): Diagnosis[] => {
-  return diagnosesData;
+  return diagnosesData
 };
 
 

@@ -6,10 +6,12 @@ export interface Diagnosis {
 }
 
 export interface Patient {
-    id: Number;
+    id: String;
     name: String;
     dateOfBirth: String;
     ssn: String;
     gender: String;
     occupation: String;
 }
+
+export type NonSensitivePatient = Omit<Patient, 'ssn'>;
